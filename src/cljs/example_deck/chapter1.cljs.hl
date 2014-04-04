@@ -3,6 +3,8 @@
 
 
 (defn slides []
-  (intro :title "Secrets of Clojure Web Development"
-    (bullet "Clinton N. Dreisbach")
-    (bullet "CodeMash 2014")))
+  (intro :title "Clortex"
+    (bullet "Machine Intelligence based on Jeff Hawkins' HTM Theory")
+         (bullet "Fergal Byrne @fergbyrne")
+         (img :src "img/cave-painting.jpg")
+    ))

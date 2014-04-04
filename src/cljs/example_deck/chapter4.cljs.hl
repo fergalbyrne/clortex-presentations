@@ -1,109 +1,70 @@
 (ns example-deck.chapter4
-    (:require [hoplon.reveal :refer [chapter slide notes highlight quicklist]]
-              [example-deck.sample-code :as sample-code]))
+  (:require [hoplon.reveal
+             :refer [chapter slide notes highlight quicklist fragment-list annotation bullet]]
+            [example-deck.sample-code :as sample-code]))
 
 
 (defn slides []
-  (chapter :title "Liberator"
-    (slide :title "REST APIs with Liberator"
-      (ul
-        (li "Liberator provides resources")
-        (li "Resources are decision trees")
-        (li "Resources provide a REST interface")
-        (li "Resources are Ring handlers"))
-      (notes "Liberator implements RFC 2616, the HTTP 1.1 spec. It heelps "
-             "create REST resources. At their core, these resources are "
-             "decision trees."))
-    (slide :title "Simple Liberator decision tree"
-      (img :src "img/simple-liberator.png"))
-    (slide :title "Simple Liberator example"
-      (sample-code/get-liberator-simple)
-      (notes "Look at the exists? function. It takes a context, which all "
-             "functions in a resource should take. The context has the request "
-             "in it, as well as the response. In this resource, we look to see "
-             "if the language parameter is equal to 'en' or 'es' and if so, "
-             "then handle-ok is called. If not, handle-not-found is called. We "
-             "did not have to define handle-ok and handle-not-found: Liberator "
-             "provides default functions for all decisions and handlers. "
-             "There's repeated code here, though, to look up the language, and "
-             "I probably should have looked it up a third time in "
-             ":handle-not-found. Let's see how we can fix that."))
-    (slide :title "Liberator context"
-      (sample-code/get-liberator-context)
-      (notes "See here how we returned a map from exists?? Any time we return "
-             "a map, it is merged into the context map and available "
-             "elsewhere. We could have even used destructuring to pull lang "
-             "out, but I didn't want to confuse the issue. That's more "
-             "idiomatic of my usage, though. It looks like we can't get lang "
-             "so easily in handle-not-found, but Liberator does provide a "
-             "way."))
-    (slide :title "Liberator context on decision failure"
-      (sample-code/get-liberator-context-with-failure)
-      (notes "Instead of returning a map from a decision function, we can "
-             "return a length-2 vector, where the first element is whether the "
-             "decision passed and the second is the map to update the context "
-             "with."))
-    (slide :title "More complex decision tree"
-      (img :src "img/complex-liberator.png"))
-    (slide :title "Liberator decisions"
-      (quicklist
-        "allowed?"
-        "authorized?"
-        "exists?"
-        "existed?"
-        "known-content-type?"
-        "method-allowed?"
-        "moved-permanently?"
-        "moved-temporarily?")
-      (notes "These are just a few of the decisions in Liberator. The full "
-             "list is very long, but luckily all of them have reasonable "
-             "defaults, so you only need to define the ones pertaining to your "
-             "resource."))
-    (slide :title "Liberator handlers"
-      (quicklist
-        "handle-ok"
-        "handle-created"
-        "handle-forbidden"
-        "handle-not-found"
-        "handle-not-implemented")
-      (notes "Like with the decisions, these are only a few of the handlers in "
-             "Liberator."))
-    (slide :title "Liberator actions"
-      (quicklist "post!" "put!" "delete!")
-      (notes "These are all the actions in Liberator. I didn't mention actions "
-             "before, but they are what they look like: functions for dealing "
-             "with requests that do not use the GET method, and which likely "
-             "have side-effects. These do continue on to handlers. For "
-             "example, post! checks a decision function, new?, after it "
-             "completes successfully. If new? is true, handle-created is "
-             "called."))
-    (slide :title "Liberator's decision graph"
-      (a :href "liberator-decision-graph.svg"
-         :target "_blank"
-         "Link to decision graph"))
-    (slide :title "Liberator representations"
-      (ul
-        (li "Handlers return representations")
-        (li
-          (code "liberator.representation/Representation")
-          " is a protocol")
-        (li
-          "This protocol defines "
-          (code "as-response")
-          ", which returns a Ring response")
-       (li
-         (strong "Very tricky: ")
-         "maps extend this protocol")
-       (li
-         "Use "
-         (code "liberator.representation/ring-response")
-         " to avoid transformation"))
-      (notes "Liberator tries to do the smart thing with your response. "
-             "Liberator has a lot of logic around this and does not treat maps "
-             "as Ring responses. Depending on the content-type, your map might "
-             "be rendered as an HTML table, a CSV, or transformed into JSON or "
-             "XML. If you have a map you have created as a Ring response, make "
-             "sure to use liberator.representation/ring-response to designate "
-             "it as a response. This has bit me as a subtle bug in the past."))
-    (slide :title "Example from todo app"
-      (sample-code/get-liberator-todo))))
+  (chapter :title "Clortex"
+           (slide :title "Numenta's NuPIC"
+                  (fragment-list
+                   "In development since 2005"
+                   "Partially implements HTM/CLA"
+                   "Written in Python and C++"
+                   (bullet "Open Source - see " (a :href "http://numenta.org" "Numenta.org")))
+                  (notes ""))
+           (slide :title "Numenta's NuPIC: Strengths"
+                  (fragment-list
+                   "Skilled dev team at Numenta with Jeff leading"
+                   "Numenta eat their own dog food - Grok uses NuPIC"
+                   "Operates using a subset of HTM/CLA principles"
+                   "Tunable using swarming on your data"
+                   "Works well on streaming scalar (e.g. machine-generated) data"
+                   (bullet "Great community - join us at " (a :href "http://numenta.org" "Numenta.org")))
+                  (notes ""))
+           (slide :title "Limitations"
+                  (fragment-list
+                   "Codebase evolved over time, not built in one go"
+                   "Difficult/scary to rewrite for flexibility"
+                   "Uses OO with large, coupled classes (~1500 LOC per class)"
+                   "Need to swarm to find parameters, no real-time control"
+                   "Not easy to extend beyond streaming scalar use case")
+                  (notes ""))
+           (slide :title "Architect, n.:"
+                  (blockquote :cite "http://www.quotationspage.com/quotes/Ambrose_Bierce/"
+                              :class "fragment" :fragment-index 0
+                              (p "One who drafts a plan of your house, and plans a draft of your money."))
+                  (annotation :class "fragment" :fragment-index 1 :align "right"
+                              "Ambrose Bierce, The Devil's Dictionary")
+
+                  (notes " "))
+           (slide :title "Clortex: Requirements"
+                  (fragment-list
+                   "Directly Analogous to HTM/CLA Theory"
+                   "Transparently Understandable Source Code"
+                   "Directly Observable Data"
+                   "Sufficiently Performant"
+                   "Useful Metrics"
+                   "Appropriate Platform")
+                  (notes ""))
+           (slide :title "Direct Analogy to Theory"
+                  (fragment-list
+                   "Each element of the theory appears in the software"
+                   "Regions contain Layers of Neurons in Columns"
+                   "Neurons have Proximal and Feedforward Dendrites"
+                   "Synapses connect/disconnect based on Permanence"
+                   "Strategies for Connection, Inhibition, Topology etc.")
+                  (notes ""))
+           (slide :title "More complex decision tree"
+                  (img :src "img/complex-liberator.png")
+                  "UNDERSTANDING, n. A cerebral secretion that enables one having it to know a house from a horse by the roof on the house. Its nature and laws have been exhaustively expounded
+                  by Locke, who rode a house, and Kant, who lived in a horse."
+                  "It is a mistake to think you can solve any major problems just with potatoes.
+[info][add][mail][note]Douglas Adams")
+           (slide :title "Liberator decisions"
+                  (quicklist
+                   "allowed?"
+                   "moved-temporarily?")
+                  (notes ""))
+           (slide :title "Example from todo app"
+                  (sample-code/get-liberator-todo))))

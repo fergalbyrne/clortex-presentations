@@ -1,44 +1,119 @@
 (ns example-deck.chapter2
-    (:require [hoplon.reveal :refer [chapter slide notes bullet]]
-              [example-deck.sample-code :as sample-code]))
-
+  (:require [hoplon.reveal :refer [chapter slide notes bullet fragment-list annotation]]
+            [example-deck.sample-code :as sample-code]))
 
 (defn slides []
-  (chapter :title "Web Dev w/Clojure"
-    (slide :title "The Big Secret"
-      (ul
-        (li "Web development is functional")
-        (li "Clojure is great at web development"))
-      (notes "A request comes in, a transformation is performed, a response is "
-             "returned. Web development lends itself to functional programming "
-             "well. Many people new to Clojure think that Clojure isn't the "
-             "best language for web development because it doesn't have a "
-             "comprehensive framework like Play or Ruby on Rails."))
-    (slide :title "The Ring Cycle"
-      (img :src "img/ring.png")
-      (notes "Clojure provides good facilities for creating web apps with Ring"))
-    (slide :title "A simple Ring app"
-      (sample-code/get-simple-ring-app))
-    (slide :title "Libraries over frameworks"
-      (ul
-        (li "Routing - Compojure")
-        (li "Templating - Hiccup or Selmer")
-        (li "SQL - Korma")
-        (li "i18n and l10n - Tower")
-        (li "Asset pipeline - Optimus or Stefon")
-        (li (strong "Luminus")
-            (text " wraps many of these up in a set of Leiningen tasks.")))
-      (notes "Clojure just has a different approach: libraries that work well "
-             "together and that you can mix and match. Does this make getting "
-             "started harder? Yes, because you have to pick your tools. But "
-             "once you start, Clojure web development can be a blast."))
-    (slide :title "Next-Level Web Apps"
-     (ul
-      (li "Single-page apps")
-      (li "APIs")
-      (li "WebSockets"))
-     (notes
-      (bullet "When things get more complicated, though, how can Clojure help "
-              "us?")
-      (bullet "I'm going to show three libraries that have helped me "
-              "greatly")))))
+  (chapter :title "The Brain"
+           (slide :title "Brain, n.:"
+                  (blockquote :cite "http://www.quotationspage.com/quotes/Ambrose_Bierce/"
+                              :class "fragment" :fragment-index 0
+                              (p "an apparatus with which we think we think."))
+                  (annotation :class "fragment" :fragment-index 1 :align "right"
+                              "Ambrose Bierce, The Devil's Dictionary")
+
+                  (notes " "))
+           (slide :title "Why Study The Brain?"
+                  (ul
+                   (li :class "fragment" :fragment-index 0
+                       "Traditional symbolic AI doesn't seem to work")
+                   (li :class "fragment" :fragment-index 1
+                       "Perhaps the brain holds the secret to intelligence")
+                   (li :class "fragment" :fragment-index 2
+                       "We can learn a lot about ourselves too!"))
+                  (notes " "))
+           (slide :title "Jeff Hawkins' Goals in HTM"
+                  (table
+                   (tr :valign "top"
+                       (td
+                        (a :href "http://www.pencomputing.com/palm/Pen33/hawkins1.html"
+                           :target "_blank"
+                           (img :src "img/jeff-palm.jpg"))
+                        (annotation "Jeff Hawkins, co-founder of Palm and Numenta"))
+                       (td
+                        (ul
+                         (li :class "fragment" :fragment-index 0
+                             "Study the neocortex and establish its principles")
+                         (li :class "fragment" :fragment-index 1
+                             "Build intelligent machines based on these principles")
+                         (li :class "fragment" :fragment-index 2
+                             "Wrote " (em "On Intelligence") " in 2003, founded "
+                             (a :href "http://numenta.com" :target "_blank" "Numenta")
+                             " in 2005")
+                         (li :class "fragment" :fragment-index 3
+                             (em "Numenta Platform for Intelligent Computing (NuPIC)")
+                             " developed in Python and C++")
+                         (li :class "fragment" :fragment-index 4
+                             "Open Sourced  "
+                             (a :href "http://numenta.org" :target "_blank" "NuPIC")
+                             " in 2013")
+                         ))))
+                  (notes " "))
+
+           (slide :title "The Neocortex"
+                  (p :class "fragment" :fragment-index 1 :align "right"
+                     "The neocortex is the wrinkly part covering our old brain.")
+                  (img :src "img/chimp-brain.jpg")
+                  (notes " "))
+
+           (slide :title "The Neocortex: 70% of the Brain"
+                  (img :src "img/smooth-brain-anim.gif" :width 512)
+                  (notes " "))
+
+           (slide :title "Lobes in the Neocortex: Surface"
+                  (annotation "Lateral Surface Lobes in Neocortex")
+                  (img :src "img/lateral-surface-map.png")
+
+                  (notes
+                   (bullet "When things get more complicated, though, how can Clojure help "
+                           "us?")
+                   (bullet "I'm going to show three libraries that have helped me "
+                           "greatly")))
+
+           (slide :title "Lobes in the Neocortex: Medial"
+                  (annotation "Medial Lobes in Neocortex")
+                  (img :src "img/medial-map.png"))
+
+           (slide :title "The Neocortex: some facts"
+                  (ul
+                   (li :class "fragment" :fragment-index 0
+                       "About 2mm thick, 100cm" (sup (small "2")) " in area"
+                       (p :class "fragment" :fragment-index 1
+                          "(or about the size of a dinner napkin!)"))
+                   (li :class "fragment" :fragment-index 2
+                       "30-50 Billion neurons "
+                       (span :class "fragment" :fragment-index 3 "(grey matter)"))
+                   (li :class "fragment" :fragment-index 4
+                       "More than 1 Trillion connections "
+                       (span :class "fragment" :fragment-index 5 "(white matter)"))
+                   (li :class "fragment" :fragment-index 6
+                       "The seat of intelligence")
+                   (li :class "fragment" :fragment-index 7
+                       "The neocortex is " (strong "hierarchical and uniform")))
+                  (notes " "))
+
+           (slide :title "The Neocortex: Hierarchy"
+                  (table
+                   (tr :valign "top"
+                       (td
+                        (img :src "img/visual-hierarchy.gif")
+                        (annotation "Visual System of the Macaque"))
+                       (td
+                        (ul
+                         (li :class "fragment" :fragment-index 0
+                             "The neocortex is divided up into many regions")
+                         (li :class "fragment" :fragment-index 1
+                             "Regions form hierarchies")
+                         (li :class "fragment" :fragment-index 3
+                             "Every region looks like every other "
+                             (span :class "fragment" :fragment-index 4 "(almost)"))
+                         (li :class "fragment" :fragment-index 5
+                             "Each region is doing the same thing")
+                         (li :class "fragment" :fragment-index 6
+                             "HTM says " (strong "all regions have the same algorithm"))
+                         (li :class "fragment" :fragment-index 7
+                             "Jeff calls this the " (strong "Cortical Learning Algorithm")))
+                        )))
+                  (notes " "))
+      ; http://i.imgur.com/r0cIDJD.gif
+
+           ))

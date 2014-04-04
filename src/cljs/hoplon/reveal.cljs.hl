@@ -93,6 +93,19 @@
    (loop-tpl :bindings [x things]
              (li @x))))
 
+(defn fragment-list
+  [& things]
+  (let [thingsv (vec things)
+        indices (vec (range (count thingsv)))]
+  (ul
+   (loop-tpl :bindings [i indices]
+               (li {:class "fragment" :fragment-index @i} (thingsv @i))))))
+
+
+(defn annotation
+  [& args]
+  (apply p :style "font-size: 70%" args))
+
 (defelem notes
   [attrs children]
   (aside (merge attrs {:class "notes"}) children))

@@ -111,9 +111,14 @@ var Reveal = (function(){
 			viewDistance: 3,
 
 			// Script dependencies to load
-			dependencies: []
+    math: {
+        mathjax: 'http://cdn.mathjax.org/mathjax/latest/MathJax.js',
+        config: 'TeX-AMS_HTML-full'  // See http://docs.mathjax.org/en/latest/config-files.html
+    },
 
-		},
+    dependencies: [
+        { src: 'plugin/math/math.js', async: true }
+    ],
 
 		// Flags if reveal.js is loaded (has dispatched the 'ready' event)
 		loaded = false,

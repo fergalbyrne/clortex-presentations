@@ -73,6 +73,8 @@
                   :async true
                   :callback (fn [] (.initHighlightingOnLoad js/hljs))}
                  {:src "reveal.js/plugin/notes/notes.js"
+                  :async true}
+                 {:src "reveal.js/plugin/math/math.js"
                   :async true}]}))))
 
   (div (-> attrs (dissoc :theme) (merge {:class "reveal"}))

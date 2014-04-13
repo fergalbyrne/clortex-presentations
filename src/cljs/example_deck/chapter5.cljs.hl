@@ -10,8 +10,7 @@
       "Supports WebSockets and long polling"
       "Supports HTTP streaming"
       "Compatible with Ring"
-      "So fast"
-      "Also a HTTP client"))
+      "$$\\left( \\sum_{k=1}^n a_k b_k \\right)^2 \\leq \\left( \\sum_{k=1}^n a_k^2 \\right) \\left( \\sum_{k=1}^n b_k^2 \\right)$$"))
     (slide :title "Streaming example"
       (sample-code/get-http-streaming))
     (slide :title "Streaming an OutputStream (part 1)"
